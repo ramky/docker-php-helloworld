@@ -12,8 +12,8 @@ jobs:
       - name: test
         run: |
           set -x
-          docker build -t ramky/docker-php-helloworld:test .
-          docker run -d --name phpinfo -p 80:8080 ramky/docker-php-helloworld:test
+          docker build -t ramky/phpinfo:test .
+          docker run -d --name phpinfo -p 80:8080 ramky/phpinfo:test
           while true
             do  sleep 10
                 docker logs phpinfo 2>& 1 | grep 'PHP .* Development Server .* started' && break
