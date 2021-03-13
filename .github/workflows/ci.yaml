@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - dca
+      - master
 jobs:
   docker:
     runs-on: ubuntu-18.04
