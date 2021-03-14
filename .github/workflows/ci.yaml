@@ -37,7 +37,7 @@ jobs:
           docker stack deploy -c etc/swarm/manifests/dca-phpinfo.yaml dca-phpinfo
           while true
             do  sleep 10
-            docker logs dca-phpinfo_dca-phpinfo 2>& 1 | grep 'PHP .* Development Server .* started' && break
+            docker service logs dca-phpinfo_dca-phpinfo 2>& 1 | grep 'PHP .* Development Server .* started' && break
             done
           while true
             do  sleep 10
