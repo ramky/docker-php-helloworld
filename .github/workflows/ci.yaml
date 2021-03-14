@@ -23,3 +23,23 @@ jobs:
             do  sleep 10
                 curl -s localhost | grep "PHP.*phpinfo()" && break
             done
+swarm:
+  runs-on: ubuntu-18.04
+  steps:
+    - name: checkout
+      uses: actions/checkout@v2
+    - name: test
+      run: |
+        set -x
+        docker build -t ramky/phpinfo:test .
+        docker swarm init
+        sed -i s/worker/manager/ etc/swarm/manifests/dca-phpinfo.yaml
+        docker stack deploy -c etc/swarm/manifests/dca-phpinfo.yaml dca-phpinfo
+        while true
+          do  sleep 10
+          docker logs dca-phpinfo_dca-phpinfo 2>& 1 | grep 'PHP .* Development Server .* started' && break
+          done
+        while true
+          do  sleep 10
+              curl -s localhost | grep "PHP.*phpinfo()" && break
+          done

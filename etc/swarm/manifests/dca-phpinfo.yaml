@@ -1,0 +1,14 @@
+services:
+  dca-phpinfo:
+    deploy:
+      mode: replicated
+      placement:
+        constraints:
+          - node.role == worker
+      replicas: 2
+    expose:
+      - "8080"
+    image: academiaonline/dca-phpinfo:latest
+    ports:
+      - "80:8080"
+version: "3.8"
